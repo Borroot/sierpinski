@@ -15,10 +15,6 @@ ypad = size * ((1 - height) / 2)
 triangle = [(xpad, ypad), (size - xpad, ypad), (size // 2, size - ypad)]
 dots = [p for p in triangle]
 
-# draw the corners
-for corner in triangle:
-    pyglet.shapes.Circle(*corner, radius = 3, color = (30, 225, 200)).draw()
-
 def point_on_triangle(pt1, pt2, pt3):
     """Random point on the triangle with vertices pt1, pt2 and pt3."""
     x, y = random.random(), random.random()
@@ -29,16 +25,29 @@ def point_on_triangle(pt1, pt2, pt3):
         s * pt1[1] + t * pt2[1] + u * pt3[1],
     )
 
-# create a random last point and draw it
+def init_draw():
+    # draw the outlining triangle
+    for corner in triangle:
+        pyglet.shapes.Circle(*corner, radius = 3, color = (30, 225, 200)).draw()
+
+    # create a random last point and draw it
+    pyglet.shapes.Circle(*last, radius=3, color=(50, 225, 30)).draw()
+
 last = point_on_triangle(*triangle)
-pyglet.shapes.Circle(*last, radius=3, color=(50, 225, 30)).draw()
+init_draw()
 
 pause = True
 
 @window.event
 def on_key_press(symbol, modifiers):
-    global pause
-    pause = not pause
+    global pause, last
+
+    if symbol == pyglet.window.key.C:
+        window.clear()
+        last = point_on_triangle(*triangle)
+        init_draw()
+    else:
+        pause = not pause
 
 @window.event
 def on_draw():
