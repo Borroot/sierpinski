@@ -53,7 +53,7 @@ triangle = Triangle(xpad, ypad, size - xpad, ypad, size // 2, size - ypad)
 triangle.draw()
 
 triangles = triangle.draw_void()
-pause = True
+pause = False
 
 @window.event
 def on_draw():
