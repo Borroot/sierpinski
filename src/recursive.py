@@ -60,7 +60,7 @@ def on_draw():
     global triangles
     if pause: return
 
-    for _ in range(1):
+    for _ in range(2):  # adjust to change speed
         triangle = triangles.pop(0)
         triangles.extend(triangle.draw_void())
 
